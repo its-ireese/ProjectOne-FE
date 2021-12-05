@@ -1,0 +1,24 @@
+<div class="container mt-5">
+<h3><b>LOGIN FORM</b></h3>
+  <form>
+    <div class="row">
+      <div class="col">
+        <label for="userName">Username:</label>
+        <input type="text" class="form-control" 
+        id="userName" placeholder="Enter username" 
+        name="userName" [(ngModel)]= "newUser.userName" 
+        required>
+      </div>
+      <div class="col">
+        <label for="password">Password:</label>
+        <input type="password" class="form-control" 
+        id="password" placeholder="Enter password" 
+        name="password" [(ngModel)] = "newUser.userPassword"
+        required>
+      </div>
+      </div>
+    </form>
+      <div>
+          <button type="button bg-warning" (click)="validateLogin()">LOGIN</button>
+      </div>
+</div>

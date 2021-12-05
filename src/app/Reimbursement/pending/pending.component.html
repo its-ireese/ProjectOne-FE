@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Pending Requests</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+<div class="container mt-3">
+    <h5 class="text-danger my-2">{{ errorMsg }}</h5>
+    <h2>List of Pending Requests</h2>
+    <table class="table table-dark table-hover">
+    <thead>
+      <tr>
+        <th>Reimbursement ID</th>
+          <th>Employee ID</th>
+          <th>Reimbursement Amount</th>
+          <th>Reimbursement Approved</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let view of allRequests">
+            <td>{{ view.reimId }}</td>
+            <td>{{ view.reimEmpId}}</td>
+            <td>{{ view.reimAmount }}</td>
+            <td>{{ view.reimApproved}}</td>
+      </tr>
+    </tbody>
+    </table>
+</div>

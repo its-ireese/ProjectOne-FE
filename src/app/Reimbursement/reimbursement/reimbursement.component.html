@@ -1,0 +1,38 @@
+<div class="contatiner">
+    <button type="button" class="btn btn-succes bm-4"
+    (click)="toggleAdd()">Submit Request</button>
+
+    <div *ngIf="flag">
+        <form class="form-inline tm-4">
+            <label for="reimAmount" class="mb-2 mr-sm-2">Amount: </label>
+            <input type="text" class="form-control mb-2 mr-sm-2"
+            id="reimAmount" placeholder="Enter Reimbursemnt Amount"
+            name="ReimAmount"
+            [(ngModel)] = "newRequest.reimAmount">
+
+            <button type="button" class="btn btn-primary mb-3" (click)=addRequest()>SUBMIT</button>
+        </form>
+    </div>
+
+    <h2>List of Requests</h2>     
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Request ID</th>
+          <th>Employee ID</th>
+          <th>Request Amount</th>
+          <th>APPROVE</th>
+          <th>DENY</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of allRequests">
+            <td>{{request.reimId}}</td>
+            <td>{{request.reimEmpId}}</td>
+            <td>{{request.reimAmount}}</td>
+            <td><button type="button"><span class="material-icons" >thumb_up_alt</span></button> </td>
+            <td><button type="button"><span class="material-icons">thumb_down_off_alt</span></button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

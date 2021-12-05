@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+div {
+  background-color: darkgray;
+}
+
+head{
+  background-color: darkgray;
+}
+
+body {
+  background-color:darkgray;
+}
