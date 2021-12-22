@@ -8,7 +8,6 @@ import { Reimbursement } from './reimbursement.model';
 })
 export class ReimbursementService {
 
-  //add URL later
   baseUrl = "http://localhost:9090/api/reimbursements";
 
   
@@ -16,17 +15,18 @@ export class ReimbursementService {
 
   allRequests = [
     {
-      reimId: 1,
-      reimEmpId: 1,
-      reimAmount: 50,
-      reimStatus: false
-    },
-    {
-    reimId: 2,
-    reimEmpId: 2,
-    reimAmount: 150,
-    reimStatus: false
+      reimId: 0,
+      reimEmpId: 0,
+      reimAmount: 0,
+      reimStatus: false,
+      reimAprrove: false
     }
+    // {
+    // reimId: 2,
+    // reimEmpId: 2,
+    // reimAmount: 150,
+    // reimStatus: false
+    // }
   ]
 
   constructor(private http: HttpClient) { }
@@ -35,22 +35,18 @@ export class ReimbursementService {
   getAllRequests(): Observable<Reimbursement[]>{
     return this.http.get<Reimbursement[]>(this.baseUrl);
   }
-  addReimbursementService(newRequest: any){
-    this.allRequests.push(newRequest);
+  getuserReimburseService(userId: number): Observable<Reimbursement[]> {
+    return this.http.get<Reimbursement[]>(this.baseUrl+"/"+userId);
   }
-
-  // approveReimbursementService(updateRequest: Reimbursement): Observable<Reimbursement>{
-  //   return this.http.put<Reimbursement>(this.baseUrl+"/approve/true", updateRequest);
-  // }
-  approveReimbursementService(reimId: number): Observable<Reimbursement>{
-    return this.http.put<Reimbursement>(this.baseUrl+"/approve/true", reimId);
-  }
-
-  // denyReimbursementService(updateRequest: Reimbursement): Observable<Reimbursement>{
-  //   return this.http.put<Reimbursement>(this.baseUrl+"/approve/false", updateRequest);
+  // addReimbursementService(newRequest: any){
+  //   this.allRequests.push(newRequest);
   // }
 
-  denyReimbursementService(reimId: number): Observable<Reimbursement>{
-    return this.http.put<Reimbursement>(this.baseUrl+"/approve/false", reimId );
-  }
+  // approveReimbursementService(reimId: number): Observable<Reimbursement>{
+  //   return this.http.put<Reimbursement>(this.baseUrl+"/approve/true", reimId);
+  // }
+
+  // denyReimbursementService(reimId: number): Observable<Reimbursement>{
+  //   return this.http.put<Reimbursement>(this.baseUrl+"/approve/false", reimId );
+  // }
 }

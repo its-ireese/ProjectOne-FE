@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/User/auth.service';
+import { User } from 'src/app/User/user.model';
 import { Employee } from '../employee.model';
 import { EmployeeService } from '../employee.service';
 
@@ -11,15 +12,18 @@ import { EmployeeService } from '../employee.service';
 })
 export class EmployeesComponent implements OnInit {
 
-  empInfo: Employee[] = [];
+  empInfo: User[] = [];
 
-  emptyInfo: Employee = {
-    empId: 0,
-    empFirstName: "",
-    empLastName: "",
-    empAddress: "",
-    empContact: "",
-    empRemoved: false
+  emptyInfo: User = {
+    userId: 0,
+    userFirstName: "",
+    userLastName: "",
+    userAddress: "",
+    userContact: "",
+    userRemoved: false,
+    userName: '',
+    userPassword: '',
+    userType: ''
   }
   
   constructor(private employeeService: EmployeeService, private activatedRoute: ActivatedRoute, private authService: AuthService, private router: Router) { }

@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/User/user.model';
+import { ManagerService } from '../manager.service';
 
 @Component({
   selector: 'app-manager-http',
@@ -8,11 +11,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManagerHttpComponent implements OnInit {
 
-  baseUrl = "http://localhost:9090/api/manager";
+  allEmployees: User[] = [];
+  errorMsg: String = ''; 
   
-  constructor(private http: HttpClient) { }
+  constructor(private managerService: ManagerService) { }
 
   ngOnInit(): void {
+    this.getAllEmployees();
   }
 
+  getAllEmployees(){
+    this.managerService.getAllEmployees().subscribe(
+      (response) => {
+        this.allEmployees = response;
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+        this.errorMsg = 'There was an internal error! Try again later! Please and thank you.';
+        console.log(this.errorMsg);
+      }
+    )
+  }
+  
 }

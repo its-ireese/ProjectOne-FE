@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/User/auth.service';
 import { Reimbursement } from '../reimbursement.model';
 import { ReimbursementService } from '../reimbursement.service';
 
@@ -21,16 +19,29 @@ export class ReimbursementComponent implements OnInit {
     reimStatus: false,
     reimApproved: false
   }
-  allRequests: any;
+  allRequests: Reimbursement[] = [];
 
-  constructor(private reimbursementService: ReimbursementService, private authService: AuthService, private router: Router) {
+  errorMsg: string = '';
+
+  constructor(private reimbursementService: ReimbursementService) {
    }
 
   ngOnInit(): void {
-    this.allRequests = this.reimbursementService.getAllRequests();
+    this.loadRequests();
   }
-  getAllRequests(): any {
-    throw new Error('Method not implemented.');
+  
+  loadRequests(){
+    this.reimbursementService.getAllRequests().subscribe(
+      (response) => {
+        console.log(response);
+        this.allRequests = response;
+      },
+      (error) => {
+        console.log(error);
+        this.errorMsg = 'There was some internal error! Try again later! Please and thank you.';
+        console.log(this.errorMsg);
+      }
+      );
   }
 
   toggleAdd(){
@@ -41,39 +52,39 @@ export class ReimbursementComponent implements OnInit {
     }
   }
 
-  addRequest(){
-    var myRequest = {
-      reimId: this.allRequests[this.allRequests.length-1].id +1, 
-      reimEmpId: this.newRequest.reimEmpId,
-      reimAmount: this.newRequest.reimAmount,
-      reimStatus: this.newRequest.reimStatus,
-      reimApproved: this.newRequest.reimApproved
-    }
+  // addRequest(){
+  //   var myRequest = {
+  //     reimId: this.allRequests[this.allRequests.length-1].id +1, 
+  //     reimEmpId: this.newRequest.reimEmpId,
+  //     reimAmount: this.newRequest.reimAmount,
+  //     reimStatus: this.newRequest.reimStatus,
+  //     reimApproved: this.newRequest.reimApproved
+  //   }
 
-  }
+  // }
 
-  approveRequest(reimId: number){
-    this.allRequests.forEach((value: any, index: string | number) => {
-      if(this.allRequests[index].reimId == reimId){
-        this.approveRequest(reimId);
-      }
-    });
-  }
+  // approveRequest(reimId: number){
+  //   this.allRequests.forEach((value: any, index: string | number) => {
+  //     if(this.allRequests[index].reimId == reimId){
+  //       this.approveRequest(reimId);
+  //     }
+  //   });
+  // }
 
-  deleteRquest(reimId: number) {
-    this.allRequests.forEach((value: any, index: string | number) => {
-      if(this.allRequests[index].reimId == reimId){
-        this.allRequests.splice(index, 1);
-      }
-    });
-  }
+  // deleteRquest(reimId: number) {
+  //   this.allRequests.forEach((value: any, index: string | number) => {
+  //     if(this.allRequests[index].reimId == reimId){
+  //       this.allRequests.splice(index, 1);
+  //     }
+  //   });
+  // }
   
 
-  denyRequest(reimId: number) {
-    this.allRequests.forEach((value: any, index: string | number) => {
-      if(this.allRequests[index].reimId == reimId){
-        this.denyRequest(reimId);
-      }
-    });
-  }
+  // denyRequest(reimId: number) {
+  //   this.allRequests.forEach((value: any, index: string | number) => {
+  //     if(this.allRequests[index].reimId == reimId){
+  //       this.denyRequest(reimId);
+  //     }
+  //   });
+  // }
 }

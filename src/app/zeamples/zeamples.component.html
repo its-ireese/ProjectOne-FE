@@ -1,0 +1,47 @@
+<p>zeamples works!</p>
+
+<h4>Click feature</h4>
+<button type="button" (click)="display()"> TEST</button>
+<h2>{{message}}</h2>
+<h5>Hover Try 1</h5>
+<button type="button" (mouseover)="hover()">Message Test</button>
+<h2>{{message2}}</h2>
+<h4>Hover Try 3</h4>
+<button type="button" (onmouseon)="floating()">Message Try</button>
+<h2>{{message3}}</h2>
+
+<div class = "container">
+    <h2>Login Form</h2>
+    <div class= "card">
+        <div class="card-header">LOGIN</div>
+        <div class="card-body"><form action="/action_page.php">
+            <div class="mb-3 mt-3">
+              <label for="userName" class="form-label">Username:</label>
+              <input type="username" 
+              class="form-control" 
+              id="userName" 
+              placeholder="Enter username" 
+              name="userName">
+            </div>
+            <div class="mb-3">
+              <label for="pwd" class="form-label">Password:</label>
+              <input type="password" 
+              class="form-control" 
+              id="pwd" 
+              placeholder="Enter password" 
+              name="pswd">
+            </div>
+            <div class="form-check mb-3">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" 
+                name="remember"> Remember me </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-danger">LOGIN</button> 
+            <button type="button" class="btn btn-danger">CLEAR</button>
+        </div>
+    </div>
+</div>

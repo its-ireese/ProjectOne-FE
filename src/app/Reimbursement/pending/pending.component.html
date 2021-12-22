@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Pending Requests</title>
@@ -6,12 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
+</head> 
+<body> -->
 
-<div class="container mt-3">
+<div class="container-md">
     <h5 class="text-danger my-2">{{ errorMsg }}</h5>
     <h2>List of Pending Requests</h2>
+    <div class="container mt-3">
+      <form class="form-inline">
+        <label for="filter">Input Employee ID to Filter</label>
+        <input type="filter" 
+        class="form-control" 
+        placeholder="Employee Id"
+         name="filter" 
+         id="filter" 
+         [(ngModel)]="filterKey"
+         >
+        <button type="submit" class="btn btn-dark" (click)="filter()">Filter</button>
+        <button type="button" class="btn btn-dark" (click)="resetFilter()">Reset</button>
+      </form>
+    </div>
     <table class="table table-dark table-hover">
     <thead>
       <tr>
@@ -24,7 +38,7 @@
     <tbody>
         <tr *ngFor="let view of allRequests">
             <td>{{ view.reimId }}</td>
-            <td>{{ view.reimEmpId}}</td>
+            <td>{{ view.reimEmpId }}</td>
             <td>{{ view.reimAmount }}</td>
             <td>{{ view.reimApproved}}</td>
       </tr>

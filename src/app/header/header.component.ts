@@ -17,11 +17,22 @@ export class HeaderComponent implements OnInit {
     return this.authService.isLoggedIn;
   }
 
-  retrieveUserType(){
-    return this.authService.retrieveUserType();
+   retrieveUserType(){
+     return this.authService.retrieveUserType();
+   }
+
+  // retrieveUser(){
+  //   return this.authService.retrieverUser
+  // }
+
+  isEmployee() {
+    let level= sessionStorage.getItem("userType");
+    return (level=="employee");
   }
 
-  retrieveUser(){
-    return this.authService.retrieverUser
+  isManager() {
+    let level= sessionStorage.getItem("userType");
+    return (level=="manager");
   }
+
 }

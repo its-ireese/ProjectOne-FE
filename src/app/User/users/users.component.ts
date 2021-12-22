@@ -11,8 +11,6 @@ import { UserService } from '../user.service';
 })
 export class UsersComponent implements OnInit {
 
-  constructor(private http: HttpClient, private router: Router, private userservice: UserService) { }
-
   allUsers: User[] = [];
 
   userObj: User = new User();
@@ -30,19 +28,94 @@ export class UsersComponent implements OnInit {
     userRemoved: false
   }
 
-  ngOnInit(): void {
-    this.loadUser();
+  currentUser: User = {
+    userId: 0,
+    userName: '',
+    userPassword: '',
+    userType: '',
+    userFirstName: '',
+    userLastName: '',
+    userAddress: '',
+    userContact: '',
+    userRemoved: false
   }
-  loadUser() {
-    this.userservice.validatedUserService(this.newUser).subscribe(
+  editUser: User = {
+    userId: 0,
+    userName: '',
+    userPassword: '',
+    userType: '',
+    userFirstName: '',
+    userLastName: '',
+    userAddress: '',
+    userContact: '',
+    userRemoved: false
+  }
+
+  editFlag = false;
+  errorMsg = "";
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit(): void {
+    // this.loadUser();
+    // this.validatedUser();
+  }
+
+  getuserInfo() {
+    this.userService.getUserInfo(Number(sessionStorage.getItem("userId"))).subscribe(
       (response) => {
-        console.log("IM TESTING"); 
-        console.log(response); 
+        this.currentUser = response;
+        // this.editUser = this.currentUser;
+        console.log(response);
       },
       (error) => {
-        this.errorUsermsg = "Unable to reterive user. Try again later!";
-        console.log(this.errorUsermsg);
-      });
-}
+        console.log(error);
+        this.errorMsg = "ERROR GETTING THE USER INFO";
+      }
+
+    );
+  }
+
+  editUserInfo() {
+    this.userService.updateInfoService(this.editUser).subscribe(
+      (response) => {
+        console.log(response);
+        this.getuserInfo();
+      
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+  }
+
+  toggleEdit() {
+    if(this.editFlag) this.editFlag=false;
+    else this.editFlag=true;
+  }
+//   loadUser() {
+//     this.userservice.validatedUserService({ userName: this.newUser, userPassword: this.newUser}).subscribe(
+//       (response) => {
+//         console.log("IM TESTING"); 
+//         console.log(response); 
+//       },
+//       (error) => {
+//         this.errorUsermsg = "Unable to reterive user. Try again later!";
+//         console.log(this.errorUsermsg);
+//       });
+// }
+
+// validatedUser() {
+//   this.userservice.validatedUserService({ userName: this.userObj }).subscribe(
+//     (response) => {
+//       console.log("IM TESTING"); 
+//       console.log(response); 
+//     },
+//     (error) => {
+//       this.errorUsermsg = "Unable to reterive user. Try again later!";
+//       console.log(this.errorUsermsg);
+//     });
+// }
 
 }

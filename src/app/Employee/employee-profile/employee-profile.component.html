@@ -1,8 +1,192 @@
-<p>employee-profile works!</p>
-
-<div class="container mt-3">
-    <h2>Profile</h2>
-    <div class="card">
-      <div class="card-body">Basic card</div>
-    </div>
+<div class="container-md">
+    <h2>MY INFO</h2>
+     <table class="table table-dark table-hover">
+         <thead>
+             <tr>
+                 <th>ID</th>
+                 <th>First Name</th>
+                 <th>Last Name</th>
+                 <th>Username</th>
+                 <th>Password</th>
+                 <th>User Type</th>
+                 <th>Phone #</th>
+                 <th>Address</th>
+             </tr>
+         </thead>
+         <tbody>
+             <tr>
+                 <td>{{currentUser.userId}}</td>
+                 <td>{{currentUser.userFirstName}}</td>
+                 <td>{{currentUser.userLastName}}</td>
+                 <td>{{currentUser.userName}}</td>
+                 <td>{{currentUser.userPassword}}</td>
+                 <td>{{currentUser.userType}}</td>
+                 <td>{{currentUser.userContact}}</td>
+                 <td>{{currentUser.userAddress}}</td>
+             </tr>
+         </tbody>
+     </table>
+  
+     <button type="button" class= "btn btn-dark" (click)=toggleEdit()>EDIT</button>
+  
+     <div *ngIf = "editFlag">
+         <form #editForm="ngForm" (ngSubmit)="editUserInfo()" class="form-inline" >
+             <label for="userName">Username</label>
+             <input type="text" 
+                 class="form-control" 
+                 placeholder="Enter a user name"
+                 ngModel name="userName" 
+                 id="userName" 
+                 [(ngModel)]="editUser.userName" 
+                 required>
+             <label for="userFirstName">First Name</label>
+             <input type="text" 
+                 class="form-control" 
+                 placeholder="Enter First Name"
+                 ngModel name="userFirstName" 
+                 id="userFirstName" 
+                 [(ngModel)]="editUser.userFirstName" 
+                 required>
+             <label for="userLastName">Last Name</label>
+             <input type="text" 
+                 class="form-control" 
+                 placeholder="Enter Last Name"
+                 ngModel name="userLastName" 
+                 id="userLastName" 
+                 [(ngModel)]="editUser.userLastName" 
+                 required>
+  
+             <label for="userPassword">Password</label>
+             <input 
+                 type="password" 
+                 class="form-control" 
+                 placeholder="Enter password" 
+                 ngModel name = "userPassword"
+                 id="userPassword"
+                 [(ngModel)] = "editUser.userPassword"
+                 required>
+             <label for="address">Address</label>
+             <input 
+                 type="text" 
+                 class="form-control" 
+                 placeholder="Enter Address" 
+                 ngModel name = "userAddress"
+                 id="userAddress" 
+                 [(ngModel)] = "editUser.userAddress"
+                 required>
+             
+             <label for="userContact">Phone Numebr</label>
+             <input 
+                 type="text" 
+                 class="form-control" 
+                 placeholder="Enter Phone Number" 
+                 ngModel name = "userContact"
+                 id="userContact" 
+                 [(ngModel)] = "editUser.userContact"
+                 required> 
+                 
+             <button [disabled]="editForm.invalid" type="submit" class="btn btn-dark" (click)="editUserInfo()">UPDATE</button>
+           </form>
+     </div>
   </div>
+
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" /> -->
+<!-- <div class="container">
+    <div class="content contact-list">
+        <div class="card card-default">
+            <div class="card-header align-items-center px-3 px-md-5">
+                <h2>My Information</h2>
+            </div>
+
+            <div class="card-body px-3 px-md-5">
+                <div class="row">
+                    <div class="col-lg-6 col-xl-4 col-md-6 col-sm-12">
+                        <div class="card card-default p-4">
+                            <a href="javascript:0" class="media text-secondary" data-toggle="modal" data-target="#modal-contact">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="mr-3 img-fluid rounded" alt="Avatar Image" />
+                                <div class="media-body">
+                                    <h5 class="mt-0 mb-2 text-dark">{{currentUser.userFirstName}}, {{currentUser.userLastName}}</h5>
+                                    <ul class="list-unstyled text-smoke text-smoke">
+                                      <li class="d-flex">
+                                        <i class="mdi mdi-badge-account mr-1"></i>
+                                        <span>{{currentUser.userId}}</span>
+                                    </li>
+                                    <li class="d-flex">
+                                        <i class="mdi mdi-phone mr-1"></i>
+                                        <span>{{currentUser.userContact}}</span>
+                                    </li>
+                                    <li class="d-flex">
+                                            <i class="mdi mdi-map mr-1"></i>
+                                            <span>{{currentUser.userAddress}}</span>
+                                        </li>         
+                                    </ul>
+                                </div>
+                            </a>
+                        </div>
+                    </div> -->
+
+        <!-- Contact Modal -->
+        <!-- <div class="modal fade" id="modal-contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-end border-bottom-0">
+                        <button type="button" class="btn-edit-icon" data-dismiss="modal" aria-label="Close">
+                            <i class="mdi mdi-pencil"></i>
+                        </button>
+
+                        <div class="dropdown">
+                            <button class="btn-dots-icon" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="mdi mdi-dots-vertical"></i>
+                            </button>
+                        </div>
+
+                        <button type="button" class="btn-close-icon" data-dismiss="modal" aria-label="Close">
+                            <i class="mdi mdi-close"></i>
+                        </button>
+                    </div>
+
+                    <div class="modal-body pt-0">
+                        <div class="row no-gutters">
+                            <div class="col-md-6">
+                                <div class="profile-content-left px-4">
+                                    <div class="card text-center px-0 border-0">
+                                        <div class="card-img mx-auto">
+                                            <img class="rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user image" />
+                                        </div>
+
+                                        <div class="card-body">
+                                          <h4 class="py-2">{{currentUser.userFirstName}}, {{currentUser.userLastName}}</h4>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="contact-info px-4">
+                                    <h4 class="mb-1">My Details</h4>
+                                    <p class="text-dark font-weight-medium pt-4 mb-2">User ID#</p>
+                                    <p>{{currentUser.userId}}</p>
+                                    <p class="text-dark font-weight-medium pt-4 mb-2">First Name</p>
+                                    <p>{{currentUser.userFirstName}}</p>
+                                    <p class="text-dark font-weight-medium pt-4 mb-2">Last Name</p>
+                                    <p>{{currentUser.userLastName}}</p>
+                                    <p class="text-dark font-weight-medium pt-4 mb-2">Screen Name</p>
+                                    <p>{{currentUser.userName}}</p>
+                                    <p class="text-dark font-weight-medium pt-4 mb-2">Phone Number</p>
+                                    <p>{{currentUser.userContact}</p>
+                                    <p class="text-dark font-weight-medium pt-4 mb-2">Address</p>
+                                    <p>{{currentUser.userAddress}</p>
+                                    <p class="text-dark font-weight-medium pt-4 mb-2">User Type</p>
+                                    <p>{{currentUser.userType}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> 
+</div>-->

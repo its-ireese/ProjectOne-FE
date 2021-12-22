@@ -16,23 +16,27 @@
       <li class="nav-item dropdown" *ngIf="isLoggedIn() && retrieveUserType() == 'employee'">
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">REIMBURSEMENT</a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" routerLink="reimbursement">Reimburstments</a>
-          <a class="dropdown-item" routerLink="resolved">My Resolved Reimburstments</a>
-          <a class="dropdown-item" routerLink="pending">My Pending Reimburstments</a>
+          <a class="dropdown-item" routerLink="mypending">My Reimbursements</a>
+          <a class="dropdown-item" routerLink="myresolved">My Resolved Reimbursements</a>
         </div>
       </li>
-      <li class="nav-item" *ngIf="isLoggedIn() && retrieveUserType() == 'employee'">
+      <li class="nav-item dropdown" *ngIf="isLoggedIn() && retrieveUserType() == 'employee'">
         <a class="nav-link" routerLink="employeeProfile">PROFILE</a>
       </li>
-      <li class="nav-item" *ngIf="isLoggedIn() && retrieveUserType() == 'manager'">
-        <a class="nav-link" routerLink="managerProfile">PROFILE</a>
+      <li class="nav-item dropdown" *ngIf="isLoggedIn() && retrieveUserType() == 'manager'">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">PROFILE</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" routerLink="managerProfile">My Profile</a>
+          <a class="dropdown-item" routerLink="allEmployees">All Employees</a>
+          </div>
       </li>
-      <li class="nav-item dropdown onmouseover" *ngIf="isLoggedIn() && retrieveUserType() == 'manager'">
+      <li class="nav-item dropdown" *ngIf="isLoggedIn() && retrieveUserType() == 'manager'">
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">REIMBURSEMENT</a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" routerLink="reimbursement">All Reimburstments</a>
-          <a class="dropdown-item" routerLink="resolved">Resolved Reimburstments</a>
-          <a class="dropdown-item" routerLink="pending">Pending Reimburstments</a>
+          <a class="dropdown-item" routerLink="reimbursement">Reimbursements</a>
+          <a class="dropdown-item" routerLink="all">All Reimbursements</a>
+          <a class="dropdown-item" routerLink="resolved">Resolved Reimbursements</a>
+          <a class="dropdown-item" routerLink="pending">Pending Reimbursements</a>
         </div>
       </li>
       <li class="nav-item" *ngIf="!isLoggedIn()">
@@ -43,3 +47,4 @@
       </li>
     </ul>
   </nav>
+  

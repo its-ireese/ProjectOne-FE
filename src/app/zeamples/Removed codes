@@ -1,0 +1,10 @@
+Took out the apporve and deny buttons of reimbursement table
+(click) = "approveRequest(request.reimId)
+click) = "denyRequest(request.reimId)"
+
+   <li class="nav-item" *ngIf="isLoggedIn() && retrieveUserType() == 'manager'">
+        <a class="nav-link" routerLink="reimbursement">REIMBURSEMENT</a>
+      </li>
+      <li class="nav-item" *ngIf="isLoggedIn() && retrieveUserType() == 'manager'">
+        <a class="nav-link" routerLink="reimbursement">REIMBURSEMENT</a>
+      </li>

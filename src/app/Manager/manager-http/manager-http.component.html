@@ -1,1 +1,25 @@
-<p>manager-http works!</p>
+
+<div class="container mt-3">
+    <h2>Employee Info</h2>            
+    <table class="table table-striped table-hover table-dark">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Address</th>
+          <th>Contact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let info of allEmployees">
+          <td>{{info.userId}}</td>
+          <td>{{info.userFirstName}}</td>
+          <td>{{info.userLastName}}</td>
+          <td>{{info.userAddress}}</td>
+          <td>{{info.userContact}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

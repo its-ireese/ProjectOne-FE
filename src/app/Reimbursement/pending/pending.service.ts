@@ -9,11 +9,15 @@ import { Reimbursement } from '../reimbursement-http/reimbursement.model';
 export class PendingService {
 
   baseUrl= "http://localhost:9090/api/reimbursements/status/false";
-
+  filterUrl= "http://localhost:9090/api/employee/";
 
   constructor(private http: HttpClient) { }
 
   getAllPendingRequestService(): Observable<Reimbursement[]>{
     return this.http.get<Reimbursement[]>(this.baseUrl);
   }
+  getPendingFilterReimbursementService(reimEmpId: Number): Observable<Reimbursement[]>{
+    return this.http.get<Reimbursement[]>(this.filterUrl+ "/" +reimEmpId+ "/reimbursement/status/false");
+  }
+  
 }

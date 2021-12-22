@@ -9,6 +9,7 @@
         name="userName" [(ngModel)]= "newUser.userName" 
         required>
       </div>
+     
       <div class="col">
         <label for="password">Password:</label>
         <input type="password" class="form-control" 
@@ -17,8 +18,10 @@
         required>
       </div>
       </div>
+      <!-- <button type="button" class= "btn btn-dark" (click)="performLogin()">LOGIN</button> -->
     </form>
       <div>
-          <button type="button bg-warning" (click)="validateLogin()">LOGIN</button>
+          <!-- <button type="button" class= "btn btn-secondary" (click)="validateLogin()">LOGIN</button> -->
+          <button type="button" class= "btn btn-dark" (click)="login()">LOGIN</button>
       </div>
 </div>

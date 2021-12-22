@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ReimbursementHttpService } from '../reimbursement-http/reimbursement-http.service';
 import { Reimbursement } from '../reimbursement.model';
+
 import { PendingService } from './pending.service';
 
 @Component({
@@ -16,6 +18,8 @@ export class PendingComponent implements OnInit {
 
   errorMsg: string = '';
 
+  filterKey = 0;
+
   newRequest: Reimbursement = {
     reimId: 0,
     reimEmpId: 0,
@@ -25,7 +29,7 @@ export class PendingComponent implements OnInit {
   }
 
 
-  constructor(private pendingService: PendingService, private router: Router) { }
+  constructor(private pendingService: PendingService, private reimbursementHttpService: ReimbursementHttpService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadPendingRequest();
@@ -43,5 +47,24 @@ export class PendingComponent implements OnInit {
         console.log(this.errorMsg);
       }
       );
+  }
+  filterPendingRequests(reimEmpId: number) {
+    this.reimbursementHttpService.getPendingFilterReimbursementService(reimEmpId).subscribe(
+      (response) => {
+        this.allRequests = response;
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  filter() {
+    this.filterPendingRequests(this.filterKey);
+  }
+
+  resetFilter() {
+    this.loadPendingRequest();
   }
 }

@@ -1,12 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 div {
-  background-color: darkgray;
+  background-color: darkred;
 }
 
 head{
-  background-color: darkgray;
+  background-color: red;
 }
 
 body {
   background-color:darkgray;
+}
+
+footer{
+  background-color: darkred;
 }

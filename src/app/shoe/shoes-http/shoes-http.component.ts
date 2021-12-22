@@ -35,11 +35,12 @@ export class ShoesHttpComponent implements OnInit {
   loadAllShoes() {
 this.shoeshttpservice.getAllShoesService().subscribe(
   (response) => {
-    console.log("IM TESTING"); 
+   // console.log("IM TESTING"); 
     console.log(response);
     this.allShoes = response;
   },
   (error) => {
+    console.log(error)
     this.errorShoemsg = "Unable to reterive shoes. Try again later!";
     console.log(this.errorShoemsg);
   });

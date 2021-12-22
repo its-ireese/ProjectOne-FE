@@ -9,7 +9,8 @@ import { Reimbursement } from './reimbursement.model';
 export class ReimbursementHttpService {
 
   baseUrl = "http://localhost:9090/api/reimbursements";
-
+  filterUrl= "http://localhost:9090/api/employee/";
+  
   constructor(private http: HttpClient) { }
 
   getAllReimbursementsService(): Observable<Reimbursement[]> {
@@ -48,6 +49,14 @@ export class ReimbursementHttpService {
     return this.http.put<Reimbursement>(this.baseUrl+"/approve/false", updateRequest);
   }
   
- 
+  getResolvedFilterReimbursementService(reimEmpId: Number): Observable<Reimbursement[]>{
+    return this.http.get<Reimbursement[]>(this.filterUrl+ reimEmpId + "/reimbursement/status/true" );
+  }
+  getPendingFilterReimbursementService(reimEmpId: Number): Observable<Reimbursement[]>{
+    return this.http.get<Reimbursement[]>(this.filterUrl +reimEmpId+ "/reimbursement/status/false" );
+  }
+  getAllFilterReimbursementsService(reimEmpId: number): Observable<Reimbursement[]> {
+    return this.http.get<Reimbursement[]>(this.filterUrl+ reimEmpId + "/reimbursement/status/false"  );
+  }
   
 }

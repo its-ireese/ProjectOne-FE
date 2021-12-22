@@ -1,5 +1,5 @@
 <div class="contatiner">
-    <button type="button" class="btn btn-succes bm-4"
+    <!-- <button type="button" class="btn btn-succes bm-4"
     (click)="toggleAdd()">Submit Request</button>
 
     <div *ngIf="flag">
@@ -12,17 +12,15 @@
 
             <button type="button" class="btn btn-primary mb-3" (click)=addRequest()>SUBMIT</button>
         </form>
-    </div>
+    </div> -->
 
     <h2>List of Requests</h2>     
-    <table class="table table-bordered">
+    <table class="table table-dark table-hover">
       <thead>
         <tr>
           <th>Request ID</th>
           <th>Employee ID</th>
           <th>Request Amount</th>
-          <th>APPROVE</th>
-          <th>DENY</th>
         </tr>
       </thead>
       <tbody>
@@ -30,8 +28,6 @@
             <td>{{request.reimId}}</td>
             <td>{{request.reimEmpId}}</td>
             <td>{{request.reimAmount}}</td>
-            <td><button type="button"><span class="material-icons" >thumb_up_alt</span></button> </td>
-            <td><button type="button"><span class="material-icons">thumb_down_off_alt</span></button></td>
         </tr>
       </tbody>
     </table>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PendingService } from '../../pending/pending.service';
+import { ResolvedService } from '../../resolved/resolved.service';
 import { ReimbursementHttpService } from '../reimbursement-http.service';
 import { Reimbursement } from '../reimbursement.model';
 
@@ -11,6 +13,7 @@ import { Reimbursement } from '../reimbursement.model';
 export class ReimbursementListHttpComponent implements OnInit {
 
   flag: boolean = false;
+  filterKey = 0;
 
   allRequests: Reimbursement[] = [];
 
@@ -23,10 +26,18 @@ export class ReimbursementListHttpComponent implements OnInit {
 	  reimStatus: false,
 	  reimApproved: false
   }
-  constructor(private reimbursementHttpService: ReimbursementHttpService, private router: Router) { }
+  updateRequest: Reimbursement = {
+    reimId: 0,
+    reimEmpId: 0,
+	  reimAmount: 0,
+	  reimStatus: false,
+	  reimApproved: false
+  };
+
+  constructor(private reimbursementHttpService: ReimbursementHttpService, private pendingService: PendingService, private resolvedService: ResolvedService, private router: Router) { }
 
   ngOnInit(): void {
-    this.loadRequests();
+    this.loadPendingRequests();
     
   }
 
@@ -57,6 +68,7 @@ export class ReimbursementListHttpComponent implements OnInit {
       (response) => {
         console.log(response);
         this.loadRequests();
+        
       },
     (error) => {
       console.log(error);
@@ -70,7 +82,7 @@ removeRequest(reimId: number){
   this.reimbursementHttpService.removeReimbursementService(reimId).subscribe(
     (response) => {
       console.log(response);
-      this.loadRequests();
+      this.loadPendingRequests();
     },
     (error) => {
       console.log(error);
@@ -84,7 +96,7 @@ approveRequest(updateRequest: Reimbursement){
   this.reimbursementHttpService.approveReimbursementService(updateRequest).subscribe(
   (response) => {
     console.log(response);
-    this.loadRequests();
+    this.loadPendingRequests();
   },
   (error) => {
     console.log(error);
@@ -97,7 +109,7 @@ denyRequest(updateRequest: Reimbursement){
   this.reimbursementHttpService.denyReimbursementService(updateRequest).subscribe(
   (response) => {
     console.log(response);
-    this.loadRequests();
+    this.loadPendingRequests();
   },
   (error) => {
     console.log(error);
@@ -106,10 +118,97 @@ denyRequest(updateRequest: Reimbursement){
   }
 )
 }
+editRequest(updateRequest: Reimbursement){
+  this.reimbursementHttpService.updateReimbursementService(updateRequest).subscribe(
+    (response) => {
+      console.log(response);
+      this.loadPendingRequests();
+    },
+    (error) => {
+      console.log(error);
+    } );
+}
 
 goToEditComponent(reimId: any){
   console.log("logged: "+ reimId);
   this.router.navigate(['reimbursement-update-http', reimId])
 }
+
+loadPendingRequests(){
+  this.pendingService.getAllPendingRequestService().subscribe(
+    (response) => {
+      console.log(response);
+      this.allRequests = response;
+      
+    },
+    (error) => {
+      console.log(error);
+      this.errorMsg = 'There was some internal error! Try again later! Please and thank you.';
+      console.log(this.errorMsg);
+    }
+    );
+}
+
+loadResolvedRequests(){
+  this.resolvedService.getAllResolvedRequestService().subscribe(
+    (response) => {
+      console.log(response);
+      this.allRequests = response;
+    },
+    (error) => {
+      console.log(error);
+      this.errorMsg = 'There was some internal error! Try again later! Please and thank you.';
+      console.log(this.errorMsg);
+    }
+    );
+}
+
+filterAllRequests(reimEmpId: number) {
+  this.reimbursementHttpService.getAllFilterReimbursementsService(reimEmpId).subscribe(
+    (response) => {
+      console.log(response);
+      this.allRequests = response;
+      console.log(response);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+}
+filterPendingRequests(reimEmpId: number) {
+  this.reimbursementHttpService.getPendingFilterReimbursementService(reimEmpId).subscribe(
+    (response) => {
+      this.allRequests = response;
+      console.log(response);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+}
+filterResolvedRequests(reimEmpId: number) {
+  this.reimbursementHttpService.getResolvedFilterReimbursementService(reimEmpId).subscribe(
+    (response) => {
+      this.allRequests = response;
+      console.log(response);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+}
+
+filter() {
+  this.filterAllRequests(this.filterKey);
+}
+
+
+resetFilter() {
+  this.loadPendingRequests();
+  this.loadRequests();
+  this.loadResolvedRequests();
+}
+
+
 }
 

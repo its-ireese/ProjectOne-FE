@@ -32,11 +32,20 @@ export class ReimbursementEditHttpComponent implements OnInit {
     );
   }
 
-  editRequest(){
+  editRequest2(){
     this.reimbursementService.updateReimbursementService(this.updateRequest).subscribe(
       (response) => {
         console.log(response);
         this.router.navigate(['reimbursement-info-http']);
+      },
+      (error) => {
+        console.log(error);
+      } );
+  }
+  editRequest(){
+    this.reimbursementService.updateReimbursementService(this.updateRequest).subscribe(
+      (response) => {
+        console.log(response);
       },
       (error) => {
         console.log(error);

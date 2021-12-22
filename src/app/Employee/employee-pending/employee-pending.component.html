@@ -1,0 +1,144 @@
+<div class="container mt-3">
+  <button 
+  type="button" 
+  class="btn btn-secondary bm-5"
+  data-bs-toggle="modal" 
+  data-bs-target="#addExampleModal">
+  Add a New Request
+</button>
+    <h5 class="text-danger my-2">{{ errorMsg }}</h5>
+    <h2>List of My Pending Requests</h2>
+    <table class="table table-dark table-hover">
+    <thead>
+      <tr>
+        <th>Reimbursement ID</th>
+        <th>Employee ID</th>
+        <th>Reimbursement Amount</th>
+        <th>Reimbursement Approved</th>
+        <th>EDIT</th>
+        <th>DELETE</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let view of allRequests">
+            <td>{{ view.reimId }}</td>
+            <td>{{ view.reimEmpId}}</td>
+            <td>{{ view.reimAmount }}</td>
+            <td>{{ view.reimApproved}}</td>
+            <td>
+              <button 
+                    type="button" 
+                    class="btn btn-primary small"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#EditModal"
+                    (click)="editRequest(view)">                    
+                    <span class="material-icons">edit</span>
+              </button> 
+              
+        </td>
+            <td>
+              <button 
+              type="button" 
+              class="btn btn-danger small"
+              (click)="removeRequest(view.reimId)">
+              <span class="material-icons" (click)= removeRequest(view.reimId)>delete</span>
+              </button>
+            </td>
+      </tr>
+    </tbody>
+    </table>
+</div>
+
+ <!-- Add Request Modal -->
+ <div class="modal fade" id="addExampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Request</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form>
+              <div class="mb-3">
+                  <label for="reimEmpId" class="mb-2 mr-sm-2">ID:</label>
+                  <input 
+                  type="text" 
+                  class="form-control mb-2 mr-sm-2" 
+                  id="reimEmpId" 
+                  placeholder="Enter Employee ID" 
+                  name="ReimEmpId"
+                  disabled
+                  #bID="ngModel"
+                  [(ngModel)]="newRequest.reimEmpId">
+                  <span 
+                      *ngIf="bID.invalid && bID.touched" 
+                      class="text-danger small">ID REQUIRED!</span>
+              </div>
+              <div class="mb-3">
+                  <label for="reimAmount" class="mb-2 mr-sm-2">Amount:</label>
+                  <input 
+                      type="text" 
+                      class="form-control mb-2 mr-sm-2" 
+                      id="reimAmount" 
+                      placeholder="Enter Reimbursement Amount" 
+                      name="ReimAmount"
+                      required
+                      #bAmount="ngModel"
+                      [(ngModel)]="newRequest.reimAmount">
+                      <span *ngIf="bAmount.invalid && bAmount.touched" class="text-danger small">Amount required!</span>
+                </div>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" (click)="addRequest()">Add Request</button>
+      </div>
+    </div>
+  </div>
+</div> 
+
+
+<!-- Edit Modal -->
+ <div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Request</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <form>
+              <!-- <div class="mb-3">
+                  <label for="reimEmpId" class="mb-2 mr-sm-2">ID:</label>
+                  <input 
+                  type="text" 
+                  class="form-control mb-2 mr-sm-2" 
+                  id="reimEmpId" 
+                  placeholder="Enter Employ" 
+                  name="ReimEmpId"
+                  required
+                  #bID="ngModel"
+                  [(ngModel)]="newRequest.reimEmpId">
+              </div> -->
+              <div class="mb-3">
+                  <label for="reimAmount" class="mb-2 mr-sm-2">Amount:</label>
+                  <input 
+                      type="text" 
+                      class="form-control mb-2 mr-sm-2" 
+                      id="reimAmount" 
+                      placeholder="Enter Reimbursement Amount" 
+                      name="ReimAmount"
+                      required
+                      #bAmount="ngModel"
+                      [(ngModel)]="newRequest.reimAmount">
+                      <span *ngIf="bAmount.invalid && bAmount.touched" class="text-danger small">Amount required!</span>
+                </div>
+            </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" (click)="editRequest(updateRequest)">Update</button>
+      </div>
+    </div>
+  </div>
+</div>

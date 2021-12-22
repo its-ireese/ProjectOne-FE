@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from '../User/user.model';
 import { Employee } from './employee.model';
 
 @Injectable({
@@ -8,16 +9,16 @@ import { Employee } from './employee.model';
 })
 export class EmployeeService {
  
-  baseUrl = "http://localhost:9090/api/employees";
-  updateUrl = "http://localhost:9090/api/employees/profile/update";
+  baseUrl = "http://localhost:9090/api/employee";
+  updateUrl = "http://localhost:9090/api/user";
   
   constructor(private http: HttpClient) { }
 
-  updateInfoService(updateInfo: Employee): Observable<Employee>{
-    return this.http.put<Employee>(this.updateUrl+"/"+updateInfo.empId, updateInfo);
+  updateInfoService(updateInfo: User): Observable<User>{
+    return this.http.put<User>(this.updateUrl + "/" + updateInfo.userId, updateInfo);
   }
 
-  viewInfoService(empId: number): Observable<Employee>{
-    return this.http.get<Employee>(this.baseUrl+"/"+empId);
+  viewInfoService(userId: number): Observable<Employee>{
+    return this.http.get<Employee>(this.baseUrl+"/"+userId);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ReimbursementHttpService } from '../reimbursement-http/reimbursement-http.service';
 import { Reimbursement } from '../reimbursement-http/reimbursement.model';
 import { ResolvedService } from './resolved.service';
 
@@ -11,6 +12,8 @@ import { ResolvedService } from './resolved.service';
 export class ResolvedComponent implements OnInit {
 
   flag: boolean = false;
+  
+  filterKey = 0;
 
   allRequests: Reimbursement[] = [];
 
@@ -24,7 +27,7 @@ export class ResolvedComponent implements OnInit {
 	  reimApproved: false
   }
   
-  constructor(private resolvedService: ResolvedService, private router: Router) { }
+  constructor(private resolvedService: ResolvedService, private reimbursementHttpService: ReimbursementHttpService , private router: Router) { }
 
   ngOnInit(): void {
     this.loadResolvedRequest();
@@ -43,4 +46,24 @@ export class ResolvedComponent implements OnInit {
       }
       );
   }
+
+  filterResolvedRequests(reimEmpId: number) {
+    this.reimbursementHttpService.getResolvedFilterReimbursementService(reimEmpId).subscribe(
+      (response) => {
+        this.allRequests = response;
+        console.log(response);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  filter() {
+    this.filterResolvedRequests(this.filterKey);
+  }
+  resetFilter() {
+    this.loadResolvedRequest();
+  }
+  
 }
